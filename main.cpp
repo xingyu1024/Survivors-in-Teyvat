@@ -27,7 +27,7 @@ inline void putimage_alpha(int x, int y, IMAGE* img)
 		GetImageHDC(img), 0, 0, w, h, { AC_SRC_OVER, 0, 255, AC_SRC_ALPHA });
 }
 
-// µØÍ¼¼¯Àà
+// åœ°å›¾é›†ç±»
 class Atlas
 {
 public:
@@ -57,7 +57,7 @@ Atlas* atlas_player_right;
 Atlas* atlas_enemy_left;
 Atlas* atlas_enemy_right;
 
-// ¶¯»­Àà
+// åŠ¨ç”»ç±»
 class Animation
 {
 public:
@@ -82,20 +82,20 @@ public:
 	}
 
 private:
-	int timer = 0;                   // ¶¯»­¼ÆÊ±Æ÷
-	int idx_frame = 0;               // ¶¯»­Ö¡Ë÷Òı
-	int interval_ms = 0;             // Ö¡¼ä¸ô
+	int timer = 0;                   // åŠ¨ç”»è®¡æ—¶å™¨
+	int idx_frame = 0;               // åŠ¨ç”»å¸§ç´¢å¼•
+	int interval_ms = 0;             // å¸§é—´éš”
 
 private:
 	Atlas* anim_atlas;
 };
 
-// Íæ¼ÒÀà
+// ç©å®¶ç±»
 class Player
 {
 public:
-	const int FRAME_WIDTH = 80;		// Íæ¼Ò¿í¶È
-	const int FRAME_HEIGHT = 80;    // Íæ¼Ò¸ß¶È
+	const int FRAME_WIDTH = 80;		// ç©å®¶å®½åº¦
+	const int FRAME_HEIGHT = 80;    // ç©å®¶é«˜åº¦
 
 public:
 	Player()
@@ -196,7 +196,7 @@ public:
 	}
 private:
 	const int SPEED = 3;
-	const int SHADOW_WIDTH = 32;	// ÒõÓ°¿í¶È
+	const int SHADOW_WIDTH = 32;	// é˜´å½±å®½åº¦
 
 private:
 	IMAGE img_shadow;
@@ -209,7 +209,7 @@ private:
 	bool is_move_right = false;
 };
 
-// ×Óµ¯Àà
+// å­å¼¹ç±»
 class Bullet
 {
 public:
@@ -230,7 +230,7 @@ private:
 	const int RADIUS = 10;
 };
 
-// µĞÈËÀà
+// æ•Œäººç±»
 class Enemy
 {
 public:
@@ -240,7 +240,7 @@ public:
 		anim_left = new Animation(atlas_enemy_left, 45);
 		anim_right = new Animation(atlas_enemy_right, 45);
 
-		// µĞÈËÉú³É±ß½ç
+		// æ•Œäººç”Ÿæˆè¾¹ç•Œ
 		enum class SpawnEdge
 		{
 			Up = 0,
@@ -249,7 +249,7 @@ public:
 			Right
 		};
 
-		// ½«µĞÈË·ÅÖÃÔÚµØÍ¼Íâ±ß½ç´¦µÄËæ»úÎ»ÖÃ
+		// å°†æ•Œäººæ”¾ç½®åœ¨åœ°å›¾å¤–è¾¹ç•Œå¤„çš„éšæœºä½ç½®
 		SpawnEdge edge = (SpawnEdge)(rand() % 4);
 		switch (edge)
 		{
@@ -339,9 +339,9 @@ public:
 
 private:
 	const int SPEED = 2;
-	const int FRAME_WIDTH = 80;    // µĞÈË¿í¶È
-	const int FRAME_HEIGHT = 80;   // µĞÈË¸ß¶È
-	const int SHADOW_WIDTH = 48;   // ÒõÓ°¿í¶È
+	const int FRAME_WIDTH = 80;    // æ•Œäººå®½åº¦
+	const int FRAME_HEIGHT = 80;   // æ•Œäººé«˜åº¦
+	const int SHADOW_WIDTH = 48;   // é˜´å½±å®½åº¦
 
 private:
 	IMAGE img_shadow;
@@ -352,7 +352,7 @@ private:
 	bool alive = true;
 };
 
-// °´Å¥Àà
+// æŒ‰é’®ç±»
 class Button
 {
 public:
@@ -424,15 +424,14 @@ private:
 	Status status = Status::Idle;
 
 private:
-	// ¼ì²âÊó±êµã»÷
+	// æ£€æµ‹é¼ æ ‡ç‚¹å‡»
 	bool CheckCursorHit(int x, int y)
 	{
 		return x >= region.left && x <= region.right && y >= region.top && y <= region.bottom;
 	}
 };
-IMAGE img_shadow;
 
-// ¿ªÊ¼ÓÎÏ·°´Å¥
+// å¼€å§‹æ¸¸æˆæŒ‰é’®
 class StartGameButton : public Button
 {
 public:
@@ -449,7 +448,7 @@ protected:
 	}
 };
 
-// ÍÆ³öÓÎÏ·°´Å¥
+// é€€å‡ºæ¸¸æˆæŒ‰é’®
 class QuitGameButton : public Button
 {
 public:
@@ -464,7 +463,7 @@ protected:
 	}
 };
 
-// Éú³ÉĞÂµÄµĞÈË
+// ç”Ÿæˆæ–°çš„æ•Œäºº
 void TryGenerateEnemy(std::vector<Enemy*>& enemy_list)
 {
 	const int INTERVAL = 100;
@@ -473,27 +472,27 @@ void TryGenerateEnemy(std::vector<Enemy*>& enemy_list)
 		enemy_list.push_back(new Enemy());
 }
 
-// ¸üĞÂ×Óµ¯Î»ÖÃ
+// æ›´æ–°å­å¼¹ä½ç½®
 void UpdateBullets(std::vector<Bullet>& bullet_list, const Player& player)
 {
-	const double RADIAL_SPEED = 0.0045;                        // ¾¶Ïò²¨¶¯ËÙ¶Á
-	const double TANGENT_SPEED = 0.0055;	                   // ÇĞÏò²¨¶¯ËÙ¶Á
-	double radian_interval = 2 * 3.14159 / bullet_list.size(); // ×Óµ¯Ö®¼äµÄ»¡¶È¼ä¸ô
+	const double RADIAL_SPEED = 0.0045;                        // å¾„å‘æ³¢åŠ¨é€Ÿè¯»
+	const double TANGENT_SPEED = 0.0055;	                   // åˆ‡å‘æ³¢åŠ¨é€Ÿè¯»
+	double radian_interval = 2 * 3.14159 / bullet_list.size(); // å­å¼¹ä¹‹é—´çš„å¼§åº¦é—´éš”
 	POINT player_position = player.GetPosition();
 	double radius = 100 + 25 * sin(GetTickCount() * RADIAL_SPEED);
 	for (size_t i = 0; i < bullet_list.size(); i++)
 	{
-		double radian = GetTickCount() * TANGENT_SPEED + radian_interval * i;  // µ±Ç°×Óµ¯ËùÔÚµÄ»¡¶ÈÖµ
+		double radian = GetTickCount() * TANGENT_SPEED + radian_interval * i;  // å½“å‰å­å¼¹æ‰€åœ¨çš„å¼§åº¦å€¼
 		bullet_list[i].position.x = player_position.x + player.FRAME_WIDTH / 2 + (int)(radius * sin(radian));
 		bullet_list[i].position.y = player_position.y + player.FRAME_HEIGHT / 2 + (int)(radius * cos(radian));
 	}
 }
 
-// »æÖÆÍæ¼ÒµÃ·Ö
+// ç»˜åˆ¶ç©å®¶å¾—åˆ†
 void DrawPlayerScore(int score)
 {
 	static TCHAR text[64];
-	_stprintf_s(text, _T("µ±Ç°Íæ¼ÒµÄ·Ö£º%d"), score);
+	_stprintf_s(text, _T("å½“å‰ç©å®¶çš„åˆ†ï¼š%d"), score);
 
 	setbkmode(TRANSPARENT);
 	settextcolor(RGB(255, 255, 255));
@@ -558,16 +557,16 @@ int main()
 		}
 		if (is_game_started)
 		{
-			// ³¢ÊÔÉú³ÉĞÂµÄµĞÈË
+			// å°è¯•ç”Ÿæˆæ–°çš„æ•Œäºº
 			TryGenerateEnemy(enemy_list);
-			// ÒÆ¶¯Íæ¼Ò
+			// ç§»åŠ¨ç©å®¶
 			player.Move();
-			// ¸üĞÂ×Óµ¯Î»ÖÃ
+			// æ›´æ–°å­å¼¹ä½ç½®
 			UpdateBullets(bullet_list, player);
-			// ¸üĞÂµĞÈËÎ»ÖÃ
+			// æ›´æ–°æ•Œäººä½ç½®
 			for (Enemy* enemy : enemy_list)
 				enemy->Move(player);
-			// ¼ì²â×Óµ¯ºÍµĞÈËµÄÅö×²
+			// æ£€æµ‹å­å¼¹å’Œæ•Œäººçš„ç¢°æ’
 			for (Enemy* enemy : enemy_list)
 			{
 				for (const Bullet& bullet : bullet_list)
@@ -580,7 +579,7 @@ int main()
 					}
 				}
 			}
-			//ÒÆ³ıÉúÃüÖµ¹éÁãµÄµĞÈË
+			//ç§»é™¤ç”Ÿå‘½å€¼å½’é›¶çš„æ•Œäºº
 			for (size_t i = 0; i < enemy_list.size(); i++)
 			{
 				Enemy* enemy = enemy_list[i];
@@ -591,14 +590,14 @@ int main()
 					delete enemy;
 				}
 			}
-			// ¼ì²âµĞÈËºÍÍæ¼ÒµÄÅö×²
+			// æ£€æµ‹æ•Œäººå’Œç©å®¶çš„ç¢°æ’
 			for (Enemy* enemy : enemy_list)
 			{
 				if (enemy->CheckPlayerCollision(player))
 				{
 					static TCHAR text[128];
-					_stprintf_s(text, _T("¼Ä£¬×îÖÕµÄ·Ö£º%d !"), score);
-					MessageBox(GetHWnd(), text, _T("ÓÎÏ·½áÊø"), MB_OK);
+					_stprintf_s(text, _T("å¯„ï¼Œæœ€ç»ˆçš„åˆ†ï¼š%d !"), score);
+					MessageBox(GetHWnd(), text, _T("æ¸¸æˆç»“æŸ"), MB_OK);
 					running = false;
 					break;
 				}
